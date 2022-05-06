@@ -550,18 +550,6 @@
             </div> <!-- end pagination -->
 
         </div> <!-- end bricks -->
-
-
-
-        <div>
-                @foreach ($data['slides'] as $item)
-                 <ul>
-                         <li>
-                                 {{$item->title.'-'.$item->short_text .'-'.$item->header_title}}
-                         </li>
-                 </ul>
-                @endforeach
-        </div>
     </section>
 @endsection
 
