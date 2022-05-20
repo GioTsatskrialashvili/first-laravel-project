@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\About;
+use App\Http\Requests\AdminAboutRequest;
 
 class AboutController extends Controller
 {
@@ -41,8 +42,9 @@ class AboutController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(AdminAboutRequest $request)
     {
+  
         $title = $request->title;
         $short_text = $request->short_text;
         $text = $request->text;

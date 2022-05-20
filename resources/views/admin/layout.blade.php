@@ -34,6 +34,9 @@
                             <a class="nav-link" href="{{ route('admin.home') }}">Dashboard</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.posts') }}">Posts</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="">Slides</a>
                         </li>
                         <li class="nav-item">
