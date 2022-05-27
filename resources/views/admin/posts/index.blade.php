@@ -18,6 +18,7 @@
                             <thead>
                                 <tr>
                                 <th>ID</th>
+                                <th>Image</th>
                                 <th>Title</th>
                                
                                 <th>Created At</th>
@@ -30,8 +31,11 @@
                                 @foreach ($data['posts'] as $item)
                                 <tr>
                                     <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ $item->id }}</strong></td>
-                                    <td>{{ $item->title }}</td>
+                                    <td>
+                                        <img style="width:70px"src="{{asset('storage/images/'.$item->image)}}" alt="">
+                                    </td>
                                     
+                                    <td>{{ $item->title }}</td>
                                     <td>{{ $item->created_at }}</td>
                                     <td>{{ $item->updated_at }}</td>
                                     <td>
@@ -54,6 +58,9 @@
                                 
                             </tbody>
                         </table>
+                        <div class="p-3 " >
+                        {{$data['posts']->links('pagination::bootstrap-4')}}
+                        </div>
                     </div>
                   </div>
             </div>

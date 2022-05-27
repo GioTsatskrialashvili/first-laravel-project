@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\PostsController as AdminPostsController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\AboutController;
 use App\Http\Controllers\Frontend\ContactController;
+use App\Http\Controllers\Frontend\PostsController;
+
 
 
 /*
@@ -24,6 +26,7 @@ use App\Http\Controllers\Frontend\ContactController;
 Route::get('/', [HomeController::class,'index'])->name('home');
 Route::get('/about', [AboutController::class,'index'])->name('about');
 Route::get('/contact', [ContactController::class,'index'])->name('contact');
+Route::get('/post/{slug}/{id}', [PostsController::class,'view'])->name('post.view');
 
 
 Auth::routes();

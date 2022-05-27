@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use \App\Models\Post;
 
 class HomeController extends Controller
 {
@@ -20,6 +21,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('frontend.home');
+        $post= Post::orderBy('id','DESC')->paginate(12);
+        $data=[
+            'posts'=>$post
+        ];
+        return view('frontend.home',['data'=>$data]);
     }
 }
