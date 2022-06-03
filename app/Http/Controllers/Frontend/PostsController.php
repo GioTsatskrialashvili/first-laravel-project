@@ -7,6 +7,17 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 class PostsController extends Controller
 {
+
+    public function index(){
+        $post = Post::orderBy('id', 'DESC')->paginate(10);//->get()||->all()
+
+        $data = [
+            'posts' => $post
+        ];
+
+        return view('frontend.post.index')->with('data', $data);
+    }
+
     public function view($slug,$id){
         $post = Post::where('id', $id)->first();
 
