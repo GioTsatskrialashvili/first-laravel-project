@@ -35,6 +35,15 @@
                                 <textarea class="form-control" id="text" rows="6" name="text"></textarea> 
                             </div>
                             <div class="mb-3">
+                                <label for="category" class="form-label">Category</label>
+                                <select name="category_id" class="form-control">
+                                    @foreach ($data['categories'] as $item)
+                                        <option value="{{$item->id}}">{{$item->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                
                                 <label for="text" class="form-label">Image</label>
                                 <input type="file" class="form-control" name="image">
                             </div>

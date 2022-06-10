@@ -158,6 +158,13 @@
                 <div data-i18n="Posts">Posts</div>
               </a>
             </li>
+            
+            <li class="menu-item {{ Route::getCurrentRoute()->getName() == 'admin.categories' ? 'active' : ''  }}">
+              <a href="{{route('admin.categories')}}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-crown"></i>
+                <div data-i18n="Categories">Categories</div>
+              </a>
+            </li>
 
             <li class="menu-item {{ Route::getCurrentRoute()->getName() == 'admin.contact' ? 'active' : ''  }}">
               <a href="{{ route('admin.contact') }}" class="menu-link">
@@ -165,6 +172,7 @@
                 <div data-i18n="Contact">Contact</div>
               </a>
             </li>
+
 
             <li class="menu-item {{ Route::getCurrentRoute()->getName() == 'admin.slides' ? 'active' : ''  }}">
               <a href="" class="menu-link">

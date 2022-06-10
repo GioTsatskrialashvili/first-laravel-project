@@ -19,8 +19,9 @@ class ContactController extends Controller
             'email'=>$request->email,
             'message'=>$request->message
         ];
-        dd($data);
+        
         Mail::to('info@laravel-app.ge')->send(new ContactMail($data));
+        return view('frontend.contact');
     }
     
 };

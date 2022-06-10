@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\AdminPostsRequest;
 use App\Models\Post;
+use App\Models\Category;
 use Illuminate\Support\Str;
 class PostsController extends Controller
 {
@@ -43,8 +44,10 @@ class PostsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('admin.posts.create');
+    {  $data=[
+        'categories'=>Category::all()
+    ];
+        return view('admin.posts.create')->with('data', $data);
     }
 
     /**
@@ -59,11 +62,13 @@ class PostsController extends Controller
         $text = $request->input('text');
         $short_text = $request->input('short_text');
         $slug=Str::slug($title);
+        $category_id= $request->input('category_id');
         $data=[
             'title' => $title,
             'text' => $text,
             'short_text' => $short_text,
-            'slug'=>$slug
+            'slug'=>$slug,
+            'category_id'=>$category_id
         ];
         
 
@@ -101,7 +106,8 @@ class PostsController extends Controller
         $post = Post::where('id', $id)->first();
 
         $data = [
-            'post' => $post
+            'post' => $post,
+            'categories'=>Category::all()
         ];
 
         return view('admin.posts.edit')->with('data', $data);
@@ -122,11 +128,13 @@ class PostsController extends Controller
         $short_text = $request->input('short_text');
         $id = $request->input('id');
         $slug=Str::slug($title);
+        $category_id= $request->input('category_id');
         Post::where('id', $id)->update([
             'title' => $title,
             'text' => $text,
             'short_text' => $short_text,
-            'slug'=>$slug  
+            'slug'=>$slug,
+            'category_id'=>$category_id  
         ]);
         if($request->has('image')&& $request->file('image')!=null){
             $image=$request->file('image');

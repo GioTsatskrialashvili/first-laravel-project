@@ -4,30 +4,28 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\AdminCategoriesRequest;
+use App\Models\Category;
+use Illuminate\Support\Str;
 
-class ContactController extends Controller
+class CategoriesController extends Controller
 {
-
-      /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('admin.contact.index');
+    {   
+        $categories = Category::orderBy('id', 'DESC')->paginate(10);//->get()||->all()
+
+        $data = [
+            'categories' => $categories
+        ];
+
+        return view('admin.categories.index')->with('data',$data);
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -35,7 +33,7 @@ class ContactController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categories.create');
     }
 
     /**
@@ -44,9 +42,17 @@ class ContactController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AdminCategoriesRequest $request)
     {
-        //
+        $title = $request->input('title');
+        
+        
+        $data=[
+            'name' => $title,
+           
+        ];
+        Category::create($data);
+        return redirect(route('admin.categories'));
     }
 
     /**
@@ -68,7 +74,14 @@ class ContactController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::where('id', $id)->first();
+
+        $data = [
+            'category' => $category
+        ];
+
+        return view('admin.categories.edit')->with('data', $data);
+
     }
 
     /**
@@ -78,9 +91,17 @@ class ContactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AdminCategoriesRequest $request)
     {
-        //
+       
+        $title = $request->input('title');
+        $id = $request->input('id');
+        Category::where('id', $id)->update([
+            'name' => $title
+            
+        ]);
+       
+        return redirect(route('admin.categories'));
     }
 
     /**
@@ -91,6 +112,7 @@ class ContactController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Category::destroy($id);
+        return redirect(route('admin.categories'));
     }
 }

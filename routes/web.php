@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AboutController as AdminAboutController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\PostsController as AdminPostsController;
+use App\Http\Controllers\Admin\CategoriesController as AdminCategoriesController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\AboutController;
 use App\Http\Controllers\Frontend\ContactController;
@@ -31,6 +32,8 @@ Route::post('/contact/send', [ContactController::class,'send'])->name('contact.s
 Route::get('/posts', [PostsController::class,'index'])->name('post.index');
 Route::get('/post/{slug}/{id}', [PostsController::class,'view'])->name('post.view');
 
+Route::post('/posts/comment', [PostsController::class,'comment'])->name('post.comment');
+
 
 Auth::routes();
 
@@ -47,5 +50,12 @@ Route::prefix('admin')->group(function () {
     Route::get('/post/edit/{id}', [AdminPostsController::class, 'edit'])->name('admin.posts.edit');
     Route::post('/post/update', [AdminPostsController::class, 'update'])->name('admin.posts.update');
     Route::get('/post/delete/{id}', [AdminPostsController::class, 'destroy'])->name('admin.posts.delete');
+
+    Route::get('/categories', [AdminCategoriesController::class, 'index'])->name('admin.categories');
+    Route::get('/categories/add', [AdminCategoriesController::class, 'create'])->name('admin.categories.create');
+    Route::post('/categories/store', [AdminCategoriesController::class, 'store'])->name('admin.categories.store');
+    Route::get('/categories/edit/{id}', [AdminCategoriesController::class, 'edit'])->name('admin.categories.edit');
+    Route::post('/categories/update', [AdminCategoriesController::class, 'update'])->name('admin.categories.update');
+    Route::get('/categories/delete/{id}', [AdminCategoriesController::class, 'destroy'])->name('admin.categories.delete');
 });
 
