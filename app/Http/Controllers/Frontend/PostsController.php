@@ -10,12 +10,23 @@ use App\Models\Comment;
 class PostsController extends Controller
 {
 
-    public function index(){
-        $post = Post::orderBy('id', 'DESC')->paginate(10);//->get()||->all()
+    public function index(Request $request){
+        $post=null;
+        if($request->input('s')){
+            $key=$request->input('s');
+            $post = Post::where('title','like','%'.$key.'%')
+                    ->orWhere('text','like','%'.$key.'%')
+                    ->orWhere('short_text','like','%'.$key.'%')
+                    ->orderBy('id', 'DESC')->paginate(10);;
+        }else{
+            $post = Post::orderBy('id', 'DESC')->paginate(10);
+        }
+      
 
         $data = [
             'posts' => $post
         ];
+       
 
         return view('frontend.post.index')->with('data', $data);
     }

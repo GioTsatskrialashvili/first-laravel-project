@@ -50,12 +50,14 @@
                 
                 </article>
                 @endforeach
-                
-
+              
+             
             </div> <!-- end bricks-wrapper -->
 
         </div> <!-- end masonry-->
-
+        @if($data['posts']->count() == 0)
+        <h1 style="text-align:center">no posts found :( </h1>
+        @endif
 
         <!-- pagination -->
         {{ $data['posts']->links('pagination::front') }}
